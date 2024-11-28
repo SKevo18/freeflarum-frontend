@@ -3,7 +3,7 @@ import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import LinkComponent from '@/components/ui/LinkComponent.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default defineComponent({
   name: 'HeaderComponent',
@@ -15,8 +15,10 @@ export default defineComponent({
     return {
       mobileMenuOpen: false,
       links: {
-        Home: 'home',
-        Settings: 'user',
+        Home: ['fas', 'home'],
+        Extensions: ['fas', 'puzzle-piece'],
+        Contact: ['fas', 'envelope'],
+        Settings: ['fas', 'user'],
       },
     }
   },
@@ -47,7 +49,7 @@ export default defineComponent({
     </button>
 
     <nav
-      class="fixed w-full left-0 z-50 flex-col px-6 py-4 mt-4 font-semibold rounded-lg shadow-md md:relative top-16 md:top-0 md:flex md:flex-row md:space-x-6 md:w-auto md:rounded-none md:bg-transparent md:p-0"
+      class="fixed w-full left-0 z-50 flex-col px-6 py-4 mt-4 font-semibold rounded-lg shadow-md md:relative top-16 md:top-0 md:flex md:flex-row md:space-x-6 md:w-auto md:rounded-none md:bg-transparent"
       :class="mobileMenuOpen ? 'flex bg-gray-100 dark:bg-gray-900' : 'hidden'"
     >
       <RouterLink
@@ -56,10 +58,22 @@ export default defineComponent({
         @click="mobileMenuOpen = false"
       >
         <LinkComponent>
-          <FontAwesomeIcon :icon="['fas', 'user-secret']" />
+          <FontAwesomeIcon class="text-yellow-500" :icon />
           <span>{{ title }}</span>
         </LinkComponent>
       </RouterLink>
     </nav>
   </header>
 </template>
+
+<style scoped>
+@import 'tailwindcss';
+
+a {
+  @apply text-gray-800 dark:text-gray-200 hover:text-yellow-400;
+}
+
+.router-link-active a {
+  @apply text-yellow-500 hover:text-yellow-600;
+}
+</style>

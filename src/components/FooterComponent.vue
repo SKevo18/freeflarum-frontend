@@ -1,15 +1,19 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import LinkComponent from './ui/LinkComponent.vue'
 
 export default defineComponent({
   name: 'FooterComponent',
+  components: {
+    LinkComponent,
+  },
   data() {
     return {
       linkGroups: {
         FreeFlarum: {
           'Support Forum': 'https://support.freeflarum.com',
           Github: 'https://github.com/FreeFlarum/freeflarum.com',
-          Donate: this.$router.getRoutes().find((route) => route.name == "donate")?.path
+          Donate: this.$router.getRoutes().find((route) => route.name == 'donate')?.path,
         },
         Flarum: {
           'Flarum.org': 'https://flarum.org',
@@ -36,9 +40,7 @@ export default defineComponent({
         <nav class="mt-4">
           <ul class="space-y-2">
             <li v-for="(href, title) in link">
-              <a :href class="text-base text-gray-900 dark:text-gray-100 hover:text-gray-500">
-                {{ title }}
-              </a>
+              <LinkComponent :href>{{ title }}</LinkComponent>
             </li>
           </ul>
         </nav>

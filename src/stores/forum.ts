@@ -6,5 +6,5 @@ export const useForumStore = defineStore('forum', {
   }),
   getters: {
     isAuthenticated: (forum) => forum.tag !== null,
-  }
+  },
 })

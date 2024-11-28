@@ -1,9 +1,15 @@
 @import 'tailwindcss';
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+}
+
+a {
+  @apply dark:text-gray-100 text-gray-900 hover:text-yellow-500;
 }

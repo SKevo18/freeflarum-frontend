@@ -3,11 +3,17 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'LinkComponent',
+  props: {
+    href: {
+      type: String,
+      required: false,
+    },
+  },
 })
 </script>
 
 <template>
-  <div class="flex py-2 space-x-2 items-center hover:text-yellow-500 text-yellow-300">
+  <a :href class="flex space-x-2 items-center">
     <slot></slot>
-  </div>
+  </a>
 </template>

@@ -12,7 +12,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-library.add(faUserSecret)
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 
 app.mount('#app')

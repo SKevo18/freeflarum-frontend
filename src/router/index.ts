@@ -4,6 +4,7 @@ import HomeView from '@/views/home/HomeView.vue'
 import ContactView from '@/views/contact/ContactView.vue'
 import SettingsView from '@/views/settings/SettingsView.vue'
 import DonateView from '@/views/DonateView.vue'
+import ExtensionsView from '@/views/ExtensionsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,11 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: ContactView,
+    },
+    {
+      path: '/extensions',
+      name: 'extensions',
+      component: ExtensionsView,
     },
     {
       path: '/settings',
