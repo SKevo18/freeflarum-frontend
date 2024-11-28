@@ -2,38 +2,64 @@
 import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
 
+import LinkComponent from '@/components/ui/LinkComponent.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 export default defineComponent({
   name: 'HeaderComponent',
+  components: {
+    FontAwesomeIcon,
+    LinkComponent,
+  },
   data() {
     return {
-      buttons: ['Home', 'Contact'],
-      links: {} as { [key: string]: string },
+      mobileMenuOpen: false,
+      links: {
+        Home: 'home',
+        Settings: 'user',
+      },
     }
-  },
-  beforeMount() {
-    this.loadRoutePaths()
-  },
-  methods: {
-    loadRoutePaths() {
-      for (const title of this.buttons) {
-        let route = this.$router.getRoutes().find((route) => route.name == title.toLowerCase())
-        if (route == undefined) continue
-
-        this.links[title] = route?.path
-      }
-    },
   },
 })
 </script>
 
 <template>
-  <header>
-    <img alt="FreeFlarum Logo" class="logo" src="/logo.svg" width="125" height="125" />
+  <header
+    class="flex flex-row flex-wrap justify-between px-6 py-6 md:items-center md:space-x-4 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900"
+  >
+    <a href="/">
+      <span class="sr-only">FreeFlarum.com</span>
+      <img src="/logo.svg" width="140" height="35" class="w-auto h-8" alt="FreeFlarum Logo" />
+    </a>
 
-    <div class="wrapper">
-      <nav v-for="(href, title) in links">
-        <RouterLink :to="href">{{ title }}</RouterLink>
-      </nav>
-    </div>
+    <button
+      @click="mobileMenuOpen = !mobileMenuOpen"
+      class="self-center inline-block w-8 h-8 p-1 text-gray-600 bg-gray-200 focus:outline-none md:hidden dark:bg-gray-800 dark:text-gray-400 hover:text-gray-500"
+      aria-label="Open Mobile Menu"
+    >
+      <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
+
+    <nav
+      class="fixed w-full left-0 z-50 flex-col px-6 py-4 mt-4 font-semibold rounded-lg shadow-md md:relative top-16 md:top-0 md:flex md:flex-row md:space-x-6 md:w-auto md:rounded-none md:bg-transparent md:p-0"
+      :class="mobileMenuOpen ? 'flex bg-gray-100 dark:bg-gray-900' : 'hidden'"
+    >
+      <RouterLink
+        v-for="(icon, title) in links"
+        :to="{ name: title.toLowerCase() }"
+        @click="mobileMenuOpen = false"
+      >
+        <LinkComponent>
+          <FontAwesomeIcon :icon="['fas', 'user-secret']" />
+          <span>{{ title }}</span>
+        </LinkComponent>
+      </RouterLink>
+    </nav>
   </header>
 </template>
