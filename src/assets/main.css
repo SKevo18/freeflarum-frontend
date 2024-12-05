@@ -16,7 +16,7 @@ main {
 
 /* text */
 .big {
-  @apply text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-red-500;
+  @apply mb-4 text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-red-500;
 }
 
 h1 {
