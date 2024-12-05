@@ -1,12 +1,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import LinkComponent from './ui/LinkComponent.vue'
 
 export default defineComponent({
   name: 'FooterComponent',
-  components: {
-    LinkComponent,
-  },
   data() {
     return {
       linkGroups: {
@@ -49,7 +45,7 @@ export default defineComponent({
         <nav class="mt-4">
           <ul class="space-y-2">
             <li v-for="(href, title) in link">
-              <LinkComponent :href>{{ title }}</LinkComponent>
+              <a :href>{{ title }}</a>
             </li>
           </ul>
         </nav>
@@ -78,7 +74,7 @@ export default defineComponent({
 <style scoped>
 @import 'tailwindcss';
 
-a {
+a[href] {
   @apply text-gray-900 dark:text-gray-100;
 }
 </style>

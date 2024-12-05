@@ -2,14 +2,12 @@
 import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
 
-import LinkComponent from '@/components/ui/LinkComponent.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default defineComponent({
   name: 'HeaderComponent',
   components: {
     FontAwesomeIcon,
-    LinkComponent,
   },
   data() {
     return {
@@ -57,10 +55,10 @@ export default defineComponent({
         :to="{ name: title.toLowerCase() }"
         @click="mobileMenuOpen = false"
       >
-        <LinkComponent>
+        <a class="flex space-x-2 items-center">
           <FontAwesomeIcon class="text-yellow-500" :icon />
           <span>{{ title }}</span>
-        </LinkComponent>
+        </a>
       </RouterLink>
     </nav>
   </header>
