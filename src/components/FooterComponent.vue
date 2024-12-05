@@ -19,6 +19,15 @@ export default defineComponent({
           'Flarum.org': 'https://flarum.org',
           Discuss: 'https://discuss.flarum.org',
         },
+        About: {
+          'About FreeFlarum': 'https://docs.freeflarum.com/en/about',
+          Status: 'https://status.freeflarum.com',
+          FaQ: 'https://docs.freeflarum.com/en/faq',
+        },
+        Legal: {
+          'Privacy Policy': 'https://freeflarum.com/privacy',
+          'Terms of Service': 'https://freeflarum.com/terms',
+        },
       },
     }
   },
@@ -34,8 +43,8 @@ export default defineComponent({
   <footer
     class="relative bottom-0 w-full py-12 mt-24 text-gray-500 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 xl:pb-24"
   >
-    <div class="grid max-w-screen-xl grid-cols-2 gap-6 px-8 mx-auto md:grid-cols-4 lg:gap-x-8">
-      <div v-for="(link, group) in linkGroups">
+    <div class="grid max-w-screen-xl grid-cols-2 md:grid-cols-4">
+      <div v-for="(link, group) in linkGroups" class="mx-auto">
         <h1 class="text-xl font-bold text-yellow-500">{{ group }}</h1>
         <nav class="mt-4">
           <ul class="space-y-2">
@@ -65,3 +74,11 @@ export default defineComponent({
     </div>
   </footer>
 </template>
+
+<style scoped>
+@import 'tailwindcss';
+
+a {
+  @apply text-gray-900 dark:text-gray-100;
+}
+</style>

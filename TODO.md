@@ -1,13 +1,14 @@
 # To-do
 
-- [ ] Vytvoriť generický Card component pre hlavnú stránku + extensions
-- [ ] Dokončiť hlavnú stránku (features, atď...)
+- [x] Vytvoriť generický Card component pre hlavnú stránku + extensions
+- [x] Dokončiť hlavnú stránku (features, atď...)
 - [ ] Donation stránka
-- [ ] Route pre sign up form, zjednodušiť to a dať to do jedného formuláru namiesto multistep
+- [x] Route pre sign up form
+- [ ] Sign up form
 
 - [ ] Upraviť Allowed Origins na backende, otestovať to pri extensions
-- [ ] Sign up form, aby to ukladalo cookies
-- [ ] Pinia store pre dáta o akutálnom fóre
+- [ ] Login form, aby to ukladalo cookies
+- [ ] Pinia store pre dáta o aktuálnom fóre
 - [ ] Settings routy, generická fetch metóda s credentials include (Axios?)
 - [ ] Settings formuláre
-- [ ] Renderovať forum tag na donation page
+- [ ] Renderovať forum tag na donation page (zo store)

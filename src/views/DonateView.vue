@@ -7,5 +7,5 @@ export default defineComponent({
 </script>
 
 <template>
-  <main>donate</main>
+  <div>donate</div>
 </template>
