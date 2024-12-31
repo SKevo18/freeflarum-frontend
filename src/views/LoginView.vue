@@ -3,9 +3,13 @@ import { defineComponent } from 'vue'
 
 import useForumStore from '@/stores/forumStore'
 import { mapStores } from 'pinia'
+import FormFieldComponent from '@/components/FormFieldComponent.vue'
 
 export default defineComponent({
   name: 'LoginView',
+  components: {
+    FormFieldComponent,
+  },
   data() {
     return {
       info: null as null | string,
@@ -15,11 +19,13 @@ export default defineComponent({
     ...mapStores(useForumStore),
   },
   methods: {
-    async login(formElement: HTMLFormElement) {
+    async login(form: HTMLFormElement) {
+      if (!form.reportValidity()) return
+
       let request = await fetch(`https://api.freeflarum.com/authentication`, {
         method: 'POST',
         credentials: 'include',
-        body: new FormData(formElement),
+        body: new FormData(form),
       })
 
       let response = await await request.json()
@@ -50,23 +56,20 @@ export default defineComponent({
     @submit.prevent="login($el)"
   >
     <div class="mb-4">
-      <input
-        class="my-2 p-3 w-full text-black bg-gray-200 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none"
+      <FormFieldComponent
         placeholder="Forum ID"
-        name="username"
+        title="Username"
         autocomplete="username"
         required
-        title="Forum ID is the part before '.freeflarum.com' in your forum hostname."
       />
       <br />
 
-      <input
-        class="my-2 p-3 w-full text-black bg-gray-200 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none"
+      <FormFieldComponent
         placeholder="Your forum admin account password"
         type="password"
-        name="password"
+        title="Password"
         autocomplete="current-password"
-        required="true"
+        required
       />
       <br />
     </div>
@@ -78,13 +81,9 @@ export default defineComponent({
       </div>
     </div>
 
-    <p x-text="info" class="pl-2 mb-4 text-left text-gray-500 border-l-2 border-yellow-500"></p>
-    <button
-      class="hint--top hint--no-arrow hint--medium dark:disabled:text-gray-700 disabled:bg-yellow-600 dark:disabled:hover:bg-yellow-600 px-2 py-1 font-medium text-center transition-colors duration-500 text-black bg-yellow-500 border border-transparent rounded-lg shadow-sm focus:outline-none hover:bg-yellow-600 dark:hover:bg-yellow-400"
-      type="submit"
-    >
-      Login
-    </button>
-    <br />
+    <p class="pl-2 mb-4 text-left text-gray-700 dark:text-gray-300 border-l-2 border-yellow-500">
+      {{ info }}
+    </p>
+    <a href="#" class="button" @click="login($el)"> Login </a>
   </form>
 </template>

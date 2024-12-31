@@ -2,7 +2,10 @@ import { defineStore } from 'pinia'
 
 export default defineStore('forum', {
   state: () => ({
-    tag: null,
+    tag: '',
+    email: '',
+    url: '',
+    donated: 0,
   }),
   actions: {
     async getForumData() {
@@ -22,6 +25,9 @@ export default defineStore('forum', {
       }
 
       this.tag = response['data']['tag']
+      this.email = response['data']['email']
+      this.url = response['data']['url']
+      this.donated = response['data']['donated']
     },
   },
   getters: {
