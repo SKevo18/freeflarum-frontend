@@ -1,17 +1,27 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import extensionsData from '@/fixtures/extensions.json'
-import CardComponent from '@/components/ui/CardComponent.vue'
+import CardComponent from '@/components/CardComponent.vue'
+import HeadingSectionComponent from '@/components/HeadingSectionComponent.vue'
 
 export default defineComponent({
   name: 'ExtensionsView',
   components: {
     CardComponent,
+    HeadingSectionComponent,
   },
   data() {
     return {
-      extensionCategories: extensionsData.data,
+      extensionCategories: {} as {
+        category: {
+          id: string
+          title: string
+          icon_name: string | null
+          description: string
+          author: string
+          url: string
+        }[]
+      },
       infoText: 'Loading...',
     }
   },
@@ -27,25 +37,27 @@ export default defineComponent({
       return count
     },
   },
-  beforeMount() {
-    this.extensionCategories = extensionsData.data
-    this.infoText = `There are ${this.extensionsCount} extensions available.`
+  async beforeMount() {
+    let data = await (await fetch('https://api.freeflarum.com/extensions')).json()
+    if (data['success']) {
+      this.extensionCategories = data['data']
+      this.infoText = `There are ${this.extensionsCount} extensions available.`
+    } else {
+      this.infoText = 'Error loading extensions!'
+    }
   },
 })
 </script>
 
 <template>
   <div>
-    <div class="text-center">
-      <h1 class="">Extensions</h1>
-      <p>{{ infoText }}</p>
-    </div>
+    <HeadingSectionComponent heading="Extensions" :description="infoText" />
 
     <div
       v-if="extensionCategories !== undefined"
       v-for="(extensions, category) in extensionCategories"
     >
-      <h2 class="mt-10 mb-6">{{ category }}</h2>
+      <h2 class="mt-10 mb-6">{{ category.length > 0 ? category : 'Other' }}</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <CardComponent

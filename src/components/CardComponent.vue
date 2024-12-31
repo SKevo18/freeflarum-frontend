@@ -17,12 +17,16 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    target: {
+      type: String,
+      default: "_blank"
+    }
   },
 })
 </script>
 
 <template>
-  <a class="card" :href>
+  <a class="card" :href :target>
     <div v-if="$props.icon">
       <FontAwesomeIcon :icon="$props.icon" size="3x" />
     </div>
@@ -32,7 +36,7 @@ export default defineComponent({
   </a>
 </template>
 
-<style>
+<style scoped>
 @import 'tailwindcss';
 
 a.card {

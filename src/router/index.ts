@@ -8,6 +8,7 @@ import ExtensionsView from '@/views/ExtensionsView.vue'
 import SettingsView from '@/views/settings/SettingsView.vue'
 import DonateView from '@/views/DonateView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import LoginView from '@/views/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/extensions',
       name: 'extensions',
       component: ExtensionsView,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
     },
     {
       path: '/settings',

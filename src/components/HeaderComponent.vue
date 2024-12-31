@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { RouterLink } from 'vue-router'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
