@@ -10,10 +10,15 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import App from '@/App.vue'
 import router from '@/router'
 
+import useForumStore from '@/stores/forum'
+
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+
+const forumStore = useForumStore()
+forumStore.nacitatForum()
 
 library.add(fas, fab)
 

@@ -29,7 +29,6 @@ export default defineComponent({
       }
 
       localStorage.setItem('access_token', response['token'])
-      this.forumStore.tag = response['token']
       this.$router.push({ name: 'settings' })
     },
   },

@@ -12,8 +12,6 @@ export default defineComponent({
   beforeMount() {
     if (!this.forumStore.isAuthenticated) {
       this.$router.push({name: "login"})
-    } else {
-      this.forumStore.nacitatForum()
     }
   }
 })

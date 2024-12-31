@@ -6,9 +6,11 @@
 - [x] Route pre sign up form
 - [ ] Sign up form
 
-- [ ] Upraviť Allowed Origins na backende, otestovať to pri extensions
-- [ ] Login form, aby to ukladalo cookies
-- [ ] Pinia store pre dáta o aktuálnom fóre
-- [ ] Settings routy, generická fetch metóda s credentials include (Axios?)
+- [ ] meta.requiresAuth guard pre routy (https://pinia.vuejs.org/core-concepts/outside-component-usage.html)
+- [ ] /extensions store
+- [x] Upraviť Allowed Origins na backende, otestovať to pri extensions
+- [x] Login form
+- [ ] Pinia store pre všetky dáta o aktuálnom fóre
+- [ ] Settings routy
 - [ ] Settings formuláre
 - [ ] Renderovať forum tag na donation page (zo store)
