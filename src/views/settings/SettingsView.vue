@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import useForumStore from '@/stores/forum'
-import { mapStores } from 'pinia';
+import useForumStore from '@/stores/forumStore'
+import { mapStores } from 'pinia'
 
 export default defineComponent({
   name: 'SettingsView',
@@ -11,9 +11,9 @@ export default defineComponent({
   },
   beforeMount() {
     if (!this.forumStore.isAuthenticated) {
-      this.$router.push({name: "login"})
+      this.$router.push({ name: 'login' })
     }
-  }
+  },
 })
 </script>
 

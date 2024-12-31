@@ -5,7 +5,7 @@ export default defineStore('forum', {
     tag: null,
   }),
   actions: {
-    async nacitatForum() {
+    async getForumData() {
       if (!this.isAuthenticated) return
       let response = await (
         await fetch(`https://api.freeflarum.com/settings/`, {
@@ -15,6 +15,11 @@ export default defineStore('forum', {
           },
         })
       ).json()
+
+      if (response['errors']) {
+        localStorage.removeItem('access_token')
+        return
+      }
 
       this.tag = response['data']['tag']
     },

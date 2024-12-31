@@ -1,8 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import useExtensionsStore from '@/stores/extensionsStore'
 import CardComponent from '@/components/CardComponent.vue'
 import HeadingSectionComponent from '@/components/HeadingSectionComponent.vue'
+import { mapStores } from 'pinia'
 
 export default defineComponent({
   name: 'ExtensionsView',
@@ -10,40 +12,26 @@ export default defineComponent({
     CardComponent,
     HeadingSectionComponent,
   },
-  data() {
-    return {
-      extensionCategories: {} as {
-        category: {
-          id: string
-          title: string
-          icon_name: string | null
-          description: string
-          author: string
-          url: string
-        }[]
-      },
-      infoText: 'Loading...',
-    }
-  },
   computed: {
     extensionsCount() {
       let count = 0
-
-      for (const key in this.extensionCategories) {
+      for (const key in this.extensionsStore.data) {
         // @ts-ignore
-        count += this.extensionCategories[key].length
+        count += this.extensionsStore.data[key].length
       }
 
       return count
     },
+    ...mapStores(useExtensionsStore),
   },
-  async beforeMount() {
-    let data = await (await fetch('https://api.freeflarum.com/extensions')).json()
-    if (data['success']) {
-      this.extensionCategories = data['data']
-      this.infoText = `There are ${this.extensionsCount} extensions available.`
-    } else {
-      this.infoText = 'Error loading extensions!'
+  beforeMount() {
+    if (!this.extensionsStore.isLoaded) {
+      this.extensionsStore
+        .getExtensions()
+        .then(
+          () =>
+            (this.extensionsStore.infoText = `There are ${this.extensionsCount} extensions available.`),
+        )
     }
   },
 })
@@ -51,12 +39,9 @@ export default defineComponent({
 
 <template>
   <div>
-    <HeadingSectionComponent heading="Extensions" :description="infoText" />
+    <HeadingSectionComponent heading="Extensions" :description="extensionsStore.infoText" />
 
-    <div
-      v-if="extensionCategories !== undefined"
-      v-for="(extensions, category) in extensionCategories"
-    >
+    <div v-for="(extensions, category) in extensionsStore.data">
       <h2 class="mt-10 mb-6">{{ category.length > 0 ? category : 'Other' }}</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -66,7 +51,13 @@ export default defineComponent({
           :href="extension.url"
         >
           <h3>{{ extension.title }}</h3>
-          <p>{{ extension.description }}</p>
+          <p>
+            {{
+              extension.description.length > 80
+                ? extension.description.substring(0, 80) + '...'
+                : extension.description
+            }}
+          </p>
         </CardComponent>
       </div>
     </div>

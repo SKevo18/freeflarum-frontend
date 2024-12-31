@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import useForumStore from '@/stores/forum'
+import useForumStore from '@/stores/forumStore'
 import { mapStores } from 'pinia'
 
 export default defineComponent({
@@ -29,6 +29,8 @@ export default defineComponent({
       }
 
       localStorage.setItem('access_token', response['token'])
+
+      await this.forumStore.getForumData()
       this.$router.push({ name: 'settings' })
     },
   },
@@ -42,7 +44,7 @@ export default defineComponent({
 
 <template>
   <form
-    class="w-80"
+    class="w-80 mx-auto"
     action="https://api.freeflarum.com/authentication"
     method="POST"
     @submit.prevent="login($el)"
@@ -53,7 +55,7 @@ export default defineComponent({
         placeholder="Forum ID"
         name="username"
         autocomplete="username"
-        required="true"
+        required
         title="Forum ID is the part before '.freeflarum.com' in your forum hostname."
       />
       <br />
